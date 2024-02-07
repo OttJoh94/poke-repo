@@ -12,8 +12,8 @@ using PokeRepo.Database;
 namespace PokeRepo.Migrations
 {
     [DbContext(typeof(PokeDbContext))]
-    [Migration("20240207123342_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20240207131224_changeKey")]
+    partial class changeKey
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,10 +54,7 @@ namespace PokeRepo.Migrations
             modelBuilder.Entity("PokeRepo.Models.PokemonRoot", b =>
                 {
                     b.Property<int?>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"));
 
                     b.Property<int?>("Height")
                         .HasColumnType("int");

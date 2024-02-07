@@ -3,14 +3,22 @@
 @model PokeRepo.Pages.Pokemon.DetailsModel
 @{
 	
-	<h1>@Model.Pokemon.Name</h1>
-	<h2>Height: @Model.Pokemon.Height</h2>
-	<h2>Weight: @Model.Pokemon.Weight</h2>
-	<h3>Forms:</h3>
-	foreach(Form form in Model.Pokemon.Forms)
+	@if(Model.Pokemon != null)
 	{
-		<h3>@form.Name</h3>
+		<h1>@Model.Pokemon.Name</h1>
+		<h2>Height: @Model.Pokemon.Height</h2>
+		<h2>Weight: @Model.Pokemon.Weight</h2>
+		<h3>Forms:</h3>
+		foreach (Form form in Model.Pokemon.Forms)
+		{
+			<h3>@form.Name</h3>
+		}
+		<h3>Species:@Model.Pokemon.Species.Name</h3>
+
 	}
-	<h3>Species:@Model.Pokemon.Species.Name</h3>
-	
+	else
+	{
+		<h1>Can't find that pokemon. Misspelled??</h1>
+	}
+
 }
