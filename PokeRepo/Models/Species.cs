@@ -1,6 +1,8 @@
-﻿namespace PokeRepo.Models
+﻿using Newtonsoft.Json;
+
+namespace PokeRepo.Models
 {
-    public class Speies
+    public class Species
     {
         [JsonProperty("name")]
         public string Name { get; set; }

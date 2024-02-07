@@ -1,11 +1,13 @@
-﻿namespace PokeRepo.Models
-{
-    public class Form
-    {
-        [JsonProperty("name")]
-        public string Name { get; set; }
+﻿using Newtonsoft.Json;
 
-        [JsonProperty("url")]
-        public string Url { get; set; }
-    }
+namespace PokeRepo.Models
+{
+	public class Form
+	{
+		[JsonProperty("name")]
+		public string Name { get; set; }
+
+		[JsonProperty("url")]
+		public string Url { get; set; }
+	}
 }

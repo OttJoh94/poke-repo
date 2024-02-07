@@ -1,0 +1,11 @@
+﻿@page
+@namespace PokeRepo.Models
+@model PokeRepo.Pages.Pokemon.AllPokemonModel
+@{
+
+	foreach(var pokemon in Enum.GetValues(typeof(Pokemon)))
+	{
+		<a asp-page ="/Pokemon/Details">@pokemon</a>
+		<br />
+	}
+}
