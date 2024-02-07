@@ -5,7 +5,7 @@
 
 	foreach(var pokemon in Enum.GetValues(typeof(Pokemon)))
 	{
-		<a asp-page ="/Pokemon/Details">@pokemon</a>
+		<a asp-page ="/Pokemon/Details" asp-route-name="@pokemon.ToString()">@pokemon</a>
 		<br />
 	}
 }
