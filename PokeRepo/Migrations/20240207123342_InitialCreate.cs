@@ -54,22 +54,23 @@ namespace PokeRepo.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Url = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PokemonRootId = table.Column<int>(type: "int", nullable: true)
+                    PokemonId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Forms", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Forms_Pokemons_PokemonRootId",
-                        column: x => x.PokemonRootId,
+                        name: "FK_Forms_Pokemons_PokemonId",
+                        column: x => x.PokemonId,
                         principalTable: "Pokemons",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Forms_PokemonRootId",
+                name: "IX_Forms_PokemonId",
                 table: "Forms",
-                column: "PokemonRootId");
+                column: "PokemonId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Pokemons_SpeciesId",

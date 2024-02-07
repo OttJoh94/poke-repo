@@ -12,5 +12,6 @@ namespace PokeRepo.Models
 
         [JsonProperty("url")]
         public string Url { get; set; }
+        public List<PokemonRoot> Pokemons { get; set; }
     }
 }
