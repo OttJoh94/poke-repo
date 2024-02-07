@@ -4,14 +4,14 @@ using PokeRepo.Models;
 
 namespace PokeRepo.Pages.Pokemon
 {
-	public class MyPokemonModel(PokemonRepository repo) : PageModel
-	{
-		private readonly PokemonRepository repo = repo;
+    public class MyPokemonModel(PokeDbContext context) : PageModel
+    {
+        private readonly PokeDbContext context = context;
 
-		public List<PokemonRoot> Pokemons { get; set; }
-		public void OnGet()
-		{
-			Pokemons = repo.GetAllPokemons();
-		}
-	}
+        public List<PokemonRoot> Pokemons { get; set; }
+        public void OnGet()
+        {
+            Pokemons = context.Pokemons.ToList();
+        }
+    }
 }

@@ -1,5 +1,13 @@
 ﻿@page
+@using PokeRepo.Models
 @model PokeRepo.Pages.Pokemon.MyPokemonModel
 @{
+	<h1>Pokemon in your database</h1>
+	foreach(PokemonRoot pokemon in Model.Pokemons)
+	{
+		<h1>@pokemon.Name</h1>
+		<h2>@pokemon.Height</h2>
+		<h2>@pokemon.Weight</h2>
+	}
 }
 
