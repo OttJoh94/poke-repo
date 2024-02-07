@@ -17,6 +17,7 @@ namespace PokeRepo.Models
 
         [JsonProperty("name")]
         public string Name { get; set; }
+        public int SpeciesId { get; set; }
 
         [JsonProperty("species")]
         public Species Species { get; set; }

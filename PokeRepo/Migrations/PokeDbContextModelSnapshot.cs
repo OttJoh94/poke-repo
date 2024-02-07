@@ -34,7 +34,7 @@ namespace PokeRepo.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PokemonRootId")
+                    b.Property<int>("PokemonId")
                         .HasColumnType("int");
 
                     b.Property<string>("Url")
@@ -43,7 +43,7 @@ namespace PokeRepo.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PokemonRootId");
+                    b.HasIndex("PokemonId");
 
                     b.ToTable("Forms");
                 });
@@ -99,15 +99,19 @@ namespace PokeRepo.Migrations
 
             modelBuilder.Entity("PokeRepo.Models.Form", b =>
                 {
-                    b.HasOne("PokeRepo.Models.PokemonRoot", null)
+                    b.HasOne("PokeRepo.Models.PokemonRoot", "Pokemon")
                         .WithMany("Forms")
-                        .HasForeignKey("PokemonRootId");
+                        .HasForeignKey("PokemonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Pokemon");
                 });
 
             modelBuilder.Entity("PokeRepo.Models.PokemonRoot", b =>
                 {
                     b.HasOne("PokeRepo.Models.Species", "Species")
-                        .WithMany()
+                        .WithMany("Pokemons")
                         .HasForeignKey("SpeciesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -118,6 +122,11 @@ namespace PokeRepo.Migrations
             modelBuilder.Entity("PokeRepo.Models.PokemonRoot", b =>
                 {
                     b.Navigation("Forms");
+                });
+
+            modelBuilder.Entity("PokeRepo.Models.Species", b =>
+                {
+                    b.Navigation("Pokemons");
                 });
 #pragma warning restore 612, 618
         }

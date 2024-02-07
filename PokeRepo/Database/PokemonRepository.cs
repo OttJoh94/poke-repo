@@ -21,6 +21,9 @@ namespace PokeRepo.Database
 
         }
 
-
+        public List<PokemonRoot> GetAllPokemons()
+        {
+            return context.Pokemons.ToList();
+        }
     }
 }
