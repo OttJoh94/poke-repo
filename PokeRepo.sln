@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34309.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokeRepo", "PokeRepo\PokeRepo.csproj", "{D2AA9C9A-5150-4026-8D17-416EDF3A4035}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokeRepo", "PokeRepo\PokeRepo.csproj", "{D2AA9C9A-5150-4026-8D17-416EDF3A4035}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
