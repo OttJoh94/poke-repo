@@ -5,17 +5,14 @@ using PokeRepo.Models;
 
 namespace PokeRepo.Pages.Pokemon
 {
-	public class DetailsModel : PageModel
+	public class DetailsModel(PokeDbContext context) : PageModel
 	{
-		private readonly PokeDbContext context;
-
-		public DetailsModel(PokeDbContext context)
-		{
-			this.context = context;
-		}
+		private readonly PokeDbContext context = context;
 
 		public PokemonRoot Pokemon { get; set; }
 		public string? ErrorMessage { get; set; }
+		public bool PokemonAdded { get; set; } = false;
+		private PokemonRoot currentPokemon;
 		public async Task OnGet(string name)
 		{
 			try
@@ -25,16 +22,7 @@ namespace PokeRepo.Pages.Pokemon
 				{
 					Pokemon = pokemon;
 
-					PokemonRoot? pokemonAlreadyExists = context.Pokemons.FirstOrDefault(p => p.Id == pokemon.Id);
-
-					if (pokemonAlreadyExists != null)
-					{
-						//Pokemon exists, don't add pokemon
-						return;
-					}
-
-					context.Pokemons.Add(pokemon);
-					context.SaveChanges();
+					currentPokemon = pokemon;
 				}
 
 			}
@@ -42,6 +30,23 @@ namespace PokeRepo.Pages.Pokemon
 			{
 				ErrorMessage = ex.Message;
 			}
+		}
+
+		//Det här funkar inte som det ska
+		public void OnPostAddMyPokemon()
+		{
+			PokemonRoot? pokemonAlreadyExists = context.Pokemons.FirstOrDefault(p => p.Id == currentPokemon.Id);
+
+			if (pokemonAlreadyExists != null)
+			{
+				//Pokemon exists, don't add pokemon
+				return;
+			}
+
+			context.Pokemons.Add(currentPokemon);
+			context.SaveChanges();
+
+			PokemonAdded = true;
 		}
 	}
 }
