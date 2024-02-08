@@ -16,7 +16,7 @@
 		<h3>Species:@Model.Pokemon.Species.Name</h3>
 
 		<form method="post">
-		<input type="submit" asp-page-handler="AddMyPokemon" value="Add to my pokemons" class="btn btn-success" />
+		<input type="submit" asp-page-handler="AddMyPokemon" asp-route-name="@Model.Pokemon.Name" value="Add to my pokemons" class="btn btn-success" />
 		</form>
 
 		<br />

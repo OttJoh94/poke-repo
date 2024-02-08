@@ -5,48 +5,62 @@ using PokeRepo.Models;
 
 namespace PokeRepo.Pages.Pokemon
 {
-	public class DetailsModel(PokeDbContext context) : PageModel
-	{
-		private readonly PokeDbContext context = context;
+    public class DetailsModel(PokeDbContext context) : PageModel
+    {
+        private readonly PokeDbContext context = context;
 
-		public PokemonRoot Pokemon { get; set; }
-		public string? ErrorMessage { get; set; }
-		public bool PokemonAdded { get; set; } = false;
-		private PokemonRoot currentPokemon;
-		public async Task OnGet(string name)
-		{
-			try
-			{
-				PokemonRoot pokemon = await new ApiCaller().MakeCall("pokemon", name);
-				if (pokemon != null)
-				{
-					Pokemon = pokemon;
+        public PokemonRoot Pokemon { get; set; }
+        public string? ErrorMessage { get; set; }
+        public bool PokemonAdded { get; set; } = false;
+        public async Task OnGet(string name)
+        {
+            try
+            {
+                PokemonRoot pokemon = await new ApiCaller().MakeCall("pokemon", name);
+                if (pokemon != null)
+                {
+                    Pokemon = pokemon;
+                }
 
-					currentPokemon = pokemon;
-				}
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = ex.Message;
+            }
+        }
 
-			}
-			catch (Exception ex)
-			{
-				ErrorMessage = ex.Message;
-			}
-		}
+        //Det här funkar inte som det ska
+        public async Task OnPostAddMyPokemon(string name)
+        {
 
-		//Det här funkar inte som det ska
-		public void OnPostAddMyPokemon()
-		{
-			PokemonRoot? pokemonAlreadyExists = context.Pokemons.FirstOrDefault(p => p.Id == currentPokemon.Id);
+            try
+            {
+                PokemonRoot pokemon = await new ApiCaller().MakeCall("pokemon", name);
+                if (pokemon != null)
+                {
+                    Pokemon = pokemon;
 
-			if (pokemonAlreadyExists != null)
-			{
-				//Pokemon exists, don't add pokemon
-				return;
-			}
+                    PokemonRoot? pokemonAlreadyExists = context.Pokemons.FirstOrDefault(p => p.Id == pokemon.Id);
 
-			context.Pokemons.Add(currentPokemon);
-			context.SaveChanges();
+                    if (pokemonAlreadyExists != null)
+                    {
+                        //Pokemon exists, don't add pokemon
+                        PokemonAdded = true;
+                        return;
+                    }
 
-			PokemonAdded = true;
-		}
-	}
+                    context.Pokemons.Add(pokemon);
+                    context.SaveChanges();
+
+                    PokemonAdded = true;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = ex.Message;
+            }
+
+        }
+    }
 }
